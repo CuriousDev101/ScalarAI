@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/stores/useAuthStore";
 import AdminView from "@/views/AdminView.vue";
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
@@ -26,8 +27,24 @@ const router = createRouter({
 			path: "/admin",
 			name: "admin",
 			component: AdminView,
+			meta: {
+				requiresAuth: true,
+				requiresAdmin: true,
+				title: "Admin Dashboard",
+			},
 		},
 	],
+});
+
+router.beforeEach((to, _from, next) => {
+	const authStore = useAuthStore();
+	if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+		next("/login");
+	} else if (to.meta.requiresAdmin && !authStore.isAdmin) {
+		next("/");
+	} else {
+		next();
+	}
 });
 
 export default router;
