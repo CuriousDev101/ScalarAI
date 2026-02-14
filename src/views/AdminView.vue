@@ -142,10 +142,10 @@ const deleteDocument = async (id: number) => {
     documents.value = documents.value.filter(doc => doc.id !== id);
 
     const notification = document.createElement('div');
-    notification.className = 'alert alert-success fixed top-4 right-4 z-50 w-auto shadow-lg animate-slide-in';
+    notification.className = 'alert alert-success fixed rounded top-4 right-4 z-50 w-100 h-auto shadow-lg animate-slide-in';
     notification.innerHTML = `
       <div class="flex items-center gap-2">
-        <CheckCircle class="w-5 h-5" />
+        <CheckCircle class="h-5" />
         <span>Document deleted successfully</span>
       </div>
     `;
@@ -221,13 +221,13 @@ const handleDrop = (e: DragEvent) => {
     } else {
       // Show error for invalid file type
       const notification = document.createElement('div');
-      notification.className = 'alert alert-error fixed top-4 right-4 z-50 w-auto shadow-lg animate-slide-in';
+      notification.className = 'alert alert-error rounded fixed top-4 right-4 z-50 w-100 h-auto shadow-lg animate-slide-in';
       notification.innerHTML = `
-        <div class="flex items-center gap-2">
-          <AlertCircle class="w-5 h-5" />
-          <span>Invalid file type. Please upload PDF, TXT, or DOCX</span>
+        <div class="flex items-center text-white gap-2">
+          <AlertCircle class="h-5" />
+          <span>Upload failed. Please try again.</span>
         </div>
-      `;
+        `;
       document.body.appendChild(notification);
       setTimeout(() => notification.remove(), 3000);
     }
