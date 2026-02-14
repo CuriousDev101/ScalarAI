@@ -3,7 +3,8 @@ export const saveToStorage = (key: string, value: any) => {
 };
 
 export const loadFromStorage = (key: string) => {
-	return localStorage.getItem(key) || null;
+	const data = localStorage.getItem(key);
+	return data ? JSON.parse(data) : null;
 };
 
 export const removeFromStorage = (key: string) => {
